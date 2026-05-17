@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>복소 푸리에 폐곡선 분석</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">Complex Fourier Series</p>
+            <h1>폐곡선의 안정적 둘레 추정 웹 실험</h1>
+            <p class="subtitle">캔버스에 폐곡선을 그리면 복소 푸리에 복원 그래프와 N별 오차 그래프를 생성합니다.</p>
+        </div>
+    </header>
+
+    <main class="layout">
+        <section class="panel draw-panel">
+            <div class="panel-head">
+                <div>
+                    <p class="section-label">Step 1</p>
+                    <h2>폐곡선 그리기</h2>
+                </div>
+                <div class="status" id="pointStatus">0 points</div>
+            </div>
+            <div class="canvas-wrap">
+                <canvas id="drawCanvas" width="820" height="560"></canvas>
+            </div>
+            <div class="button-row">
+                <button id="clearBtn" class="secondary">초기화</button>
+                <button id="circleBtn" class="secondary">원 예시</button>
+                <button id="coastBtn" class="secondary">해안선형 예시</button>
+                <button id="analyzeBtn" class="primary">분석 실행</button>
+            </div>
+            <p class="hint">한 번에 이어서 그리고 분석하면 자동으로 시작점과 끝점이 닫힙니다.</p>
+        </section>
+
+        <aside class="panel settings-panel">
+            <p class="section-label">Step 2</p>
+            <h2>분석 설정</h2>
+            <div class="field-grid">
+                <label>샘플 수<input id="samples" type="number" value="1024" min="128" max="8192"></label>
+                <label>최대 N<input id="maxOrder" type="number" value="80" min="1" max="500"></label>
+                <label>둘레 샘플 수<input id="perimeterSamples" type="number" value="4096" min="512" max="32768"></label>
+                <label>ε<input id="slopeTol" type="number" value="0.006" step="0.001" min="0.000001" max="0.5"></label>
+                <label>RMSE 허용값<input id="rmseTol" type="number" value="0.040" step="0.005" min="0.000001" max="1"></label>
+                <label>에너지 η<input id="energyTol" type="number" value="0.985" step="0.005" min="0" max="1"></label>
+                <label>연속 횟수 q<input id="window" type="number" value="3" min="1" max="20"></label>
+            </div>
+            <div class="formula-card">
+                <p>선택식</p>
+                <div>N* = min { N : ΔN &lt; ε 가 q회 유지, EN &gt; η }</div>
+            </div>
+        </aside>
+
+        <section class="panel result-panel">
+            <div class="panel-head">
+                <div>
+                    <p class="section-label">Step 3</p>
+                    <h2>분석 결과</h2>
+                </div>
+                <div id="runId" class="status">ready</div>
+            </div>
+            <div id="message" class="message">분석 전입니다. 왼쪽 캔버스에 폐곡선을 그린 뒤 분석을 실행하세요.</div>
+            <div class="summary-grid" id="summaryGrid">
+                <div><span>안정적 N*</span><strong>-</strong></div>
+                <div><span>오차 최소 N</span><strong>-</strong></div>
+                <div><span>추정 둘레</span><strong>-</strong></div>
+                <div><span>기준 둘레</span><strong>-</strong></div>
+            </div>
+            <div class="image-grid">
+                <figure>
+                    <figcaption>curve_reconstruction.jpg</figcaption>
+                    <img id="reconstructionImg" alt="curve reconstruction result">
+                </figure>
+                <figure>
+                    <figcaption>error_vs._N.jpg</figcaption>
+                    <img id="errorImg" alt="error versus N result">
+                </figure>
+            </div>
+            <div class="downloads" id="downloads"></div>
+        </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

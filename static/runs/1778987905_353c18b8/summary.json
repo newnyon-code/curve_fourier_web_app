@@ -1,0 +1,17 @@
+{
+  "recommended_N": 20,
+  "selection_reason": "plateau_start_rule",
+  "recommended_fourier_perimeter": 2032.8794684117315,
+  "reference_polygon_perimeter": 2187.0411901008115,
+  "recommended_relative_length_error": -0.07048871433554203,
+  "recommended_rmse_normalized": 0.0056053073213987005,
+  "recommended_energy_ratio": 0.999956373766718,
+  "min_error_N": 160,
+  "min_error_relative_length_error": -0.004139172491665756,
+  "parameters": {
+    "slope_tol": 0.006,
+    "rmse_tol": 0.04,
+    "energy_tol": 0.985,
+    "window": 3
+  }
+}
